@@ -20,7 +20,7 @@ Está pensada para **ligas amateurs, clubes y entrenadores** que buscan una alte
 
 ## 🖥️ Demo visual
 
-| ![Registro en vivo](img\screenshoots\live_scoring.png) |
+| ![Registro en vivo](img/screenshoots/live_scoring.png) |
 
 ---
 
