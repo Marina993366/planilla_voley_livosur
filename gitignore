@@ -1,0 +1,22 @@
+# Node (if used later)
+node_modules/
+dist/
+build/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python server artifacts
+__pycache__/
+*.pyc
+
+# Package-lock
+package-lock.json

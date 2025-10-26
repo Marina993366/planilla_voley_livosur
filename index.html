@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilla de Voley Online v31</title>
+    <!-- Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Fuente Inter para una mejor legibilidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col items-center min-h-screen p-2">
+
+    <!-- Contenedor principal de la aplicación -->
+    <main class="w-full max-w-7xl mx-auto bg-white rounded-xl shadow-xl p-2 sm:p-4">
+        <!-- Layout principal: 1 columna en móvil, 3 en desktop -->
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,_2fr)_1fr] gap-4">
+            
+            <!-- Panel Lateral Izquierdo: Solo para Desktop, muestra la plantilla del equipo -->
+            <aside id="left-player-list" class="hidden lg:block bg-gray-50 p-4 rounded-lg"></aside>
+            
+            <!-- Sección Central: Controles y Cancha -->
+            <section class="flex flex-col space-y-2">
+                <!-- Marcador Unificado para todas las vistas -->
+                <header id="unified-scoreboard" class="w-full bg-gray-50 p-2 rounded-lg"></header>
+
+                <!-- Controles Generales del Partido -->
+                <nav class="flex items-center justify-center flex-wrap gap-2 py-1">
+                    <button id="serve-button" data-action="open-serve-modal" class="bg-white hover:bg-gray-100 text-gray-800 font-bold p-2 rounded-full border" title="Seleccionar Saque Inicial" disabled>
+                        <img src="img/pelota.webp" alt="Seleccionar Saque" class="h-5 w-5 sm:h-6 sm:w-6 rounded-full pointer-events-none">
+                    </button>
+                    <button data-action="swap-sides" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded-full" title="Cambiar de lado"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg></button>
+                    <button data-action="open-stats-summary" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-3 rounded-lg text-xs sm:text-sm">Estadísticas</button>
+                    <button id="finish-match-button" data-action="export-pdf" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold p-2 rounded-full" title="Finalizar Partido y Exportar PDF" disabled>
+                        <img src="img/exportar.webp" alt="Finalizar Partido" class="h-5 w-5 sm:h-6 sm:w-6 pointer-events-none">
+                    </button>
+                    <button data-action="reset-match" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs sm:text-sm">Reiniciar Partido</button>
+                    <button data-action="clear-data" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-lg text-xs sm:text-sm">Limpiar Datos</button> 
+                </nav>
+
+                <!-- Display para los resultados de sets anteriores -->
+                <div id="set-scores-display" class="w-full text-center text-xs sm:text-sm font-semibold my-2"></div>
+                
+                <!-- Área de la Cancha -->
+                <div id="court-area" class="w-full">
+                    <div class="court">
+                        <div id="left-court" class="team-court-side"></div>
+                        <div class="center-line"></div>
+                        <div id="right-court" class="team-court-side"></div>
+                    </div>
+                </div>
+
+                <!-- Listas de Jugadores (Solo para Móvil/Tablet) -->
+                <div id="mobile-player-lists" class="lg:hidden w-full grid grid-cols-2 gap-4 mt-4"></div>
+            </section>
+
+            <!-- Panel Lateral Derecho: Solo para Desktop -->
+            <aside id="right-player-list" class="hidden lg:block bg-gray-50 p-4 rounded-lg"></aside>
+        </div>
+    </main>
+    
+    <!-- Contenedores para las ventanas modales (pop-ups). El contenido se inyecta con JavaScript. -->
+    <div id="player-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="player-modal-content"></div></div>
+    <div id="libero-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="libero-modal-content" style="max-width: 400px;"></div></div>
+    <div id="subs-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="subs-modal-content"></div></div>
+    <div id="stats-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="stats-modal-content" style="max-width: 500px;"></div></div>
+    <div id="stats-summary-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="stats-summary-modal-content"></div></div>
+    <div id="serve-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="serve-modal-content" style="max-width: 400px;"></div></div>
+    <div id="lineup-modal" class="modal-overlay hidden opacity-0"><div class="modal-container" id="lineup-modal-content"></div></div>
+
+    <!-- Scripts de JavaScript modularizados. 'main.js' es el punto de entrada. -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
